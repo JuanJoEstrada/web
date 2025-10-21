@@ -8,7 +8,9 @@ function App() {
   const [value, setValue] = useState("");
   const [page, setPage] = useState(1);
 
-  const { data, debouncedSearch } = useFetchCharacters(value, page);
+  const { data, debouncedSearch, loading } = useFetchCharacters(value, page);
+
+  const emptyResult = data?.characters.results.length === 0;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -25,13 +27,20 @@ function App() {
   return (
     <div className="w-full min-h-dvh">
       <Header />
-      <Body value={value} data={data} handleChange={handleChange} />
-      <Footer
-        pageInfo={data?.characters.info}
-        currentPage={page}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
+      <Body
+        value={value}
+        data={data}
+        isLoading={loading}
+        handleChange={handleChange}
       />
+      {!(emptyResult || loading) && (
+        <Footer
+          pageInfo={data?.characters.info}
+          currentPage={page}
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+        />
+      )}
     </div>
   );
 }
