@@ -1,5 +1,13 @@
 import GET_CHARACTERS from "@/graphql/queries";
 import { useQuery } from "@apollo/client/react";
+import useDebounce from "./useDebounce";
+
+export interface PageInfo {
+  count: number;
+  next: number;
+  pages: number;
+  prev: number;
+}
 
 export interface CharacterProps {
   id: string;
@@ -9,26 +17,28 @@ export interface CharacterProps {
   image: string;
 }
 
-interface FetchCharactersProps {
+export interface FetchCharactersProps {
   characters: {
-    info: {
-      count: number;
-      next: number;
-      pages: number;
-      prev: number;
-    };
+    info: PageInfo;
     results: CharacterProps[];
   };
 }
 
-const useFetchCharacters = () => {
-  const { data, loading, error } =
-    useQuery<FetchCharactersProps>(GET_CHARACTERS);
+const useFetchCharacters = (search: string, page: number) => {
+  const debouncedSearch = useDebounce(search);
+
+  const { data, loading, error } = useQuery<FetchCharactersProps>(
+    GET_CHARACTERS,
+    {
+      variables: { page, name: debouncedSearch || null },
+    }
+  );
 
   return {
     data,
     loading,
     error,
+    debouncedSearch,
   };
 };
 
