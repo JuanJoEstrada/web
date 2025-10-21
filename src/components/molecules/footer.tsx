@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 const Footer = () => {
   return (
-    <footer className="flex justify-center items-center gap-4 bg-[#f9fafb]">
+    <footer className="flex justify-center items-center gap-4 bg-[#f9fafb] py-10">
       <Button variant="outline" size="sm" className="w-24 h-11">
         <ChevronLeft />
         Prev
