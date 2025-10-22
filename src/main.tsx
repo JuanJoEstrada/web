@@ -7,12 +7,14 @@ import client from "./lib/apollo.ts";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
-
+import ErrorBoundary from "./components/organisms/errorBoundary.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <ErrorBoundary>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </ErrorBoundary>
   </StrictMode>
 );

@@ -2,6 +2,7 @@ import type { ChangeEvent, FC } from "react";
 import Body from "../molecules/body";
 import Footer from "../molecules/footer";
 import type { FetchCharactersProps } from "@/hooks/useFetchCharacters";
+import type { ErrorLike } from "@apollo/client";
 
 interface AllCharacterTabProps {
   value: string;
@@ -9,6 +10,7 @@ interface AllCharacterTabProps {
   loading: boolean;
   emptyResult: boolean;
   page: number;
+  error: ErrorLike | undefined;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleNextPage: () => void;
   handlePrevPage: () => void;
@@ -20,6 +22,7 @@ const AllCharacterTab: FC<AllCharacterTabProps> = ({
   loading,
   emptyResult,
   page,
+  error,
   handleChange,
   handleNextPage,
   handlePrevPage,
@@ -31,8 +34,9 @@ const AllCharacterTab: FC<AllCharacterTabProps> = ({
         data={data}
         isLoading={loading}
         handleChange={handleChange}
+        error={error}
       />
-      {!(emptyResult || loading) && (
+      {!(emptyResult || loading || error) && (
         <Footer
           pageInfo={data?.characters.info}
           currentPage={page}

@@ -16,7 +16,10 @@ function App() {
     [favoriteItemsObj]
   );
 
-  const { data, debouncedSearch, loading } = useFetchCharacters(value, page);
+  const { data, debouncedSearch, loading, error } = useFetchCharacters(
+    value,
+    page
+  );
 
   const emptyResult = data?.characters.results.length === 0;
 
@@ -46,6 +49,7 @@ function App() {
           data={data}
           loading={loading}
           page={page}
+          error={error}
           emptyResult={emptyResult}
           handleChange={handleChange}
           handleNextPage={handleNextPage}
