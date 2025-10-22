@@ -5,6 +5,7 @@ import Header from "./components/molecules/header";
 import useFetchCharacters from "./hooks/useFetchCharacters";
 
 function App() {
+  const [isFavoriteView, setIsFavoriteView] = useState(false);
   const [value, setValue] = useState("");
   const [page, setPage] = useState(1);
 
@@ -26,7 +27,10 @@ function App() {
 
   return (
     <div className="w-full min-h-dvh">
-      <Header />
+      <Header
+        isFavoriteView={isFavoriteView}
+        setIsFavoriteView={setIsFavoriteView}
+      />
       <Body
         value={value}
         data={data}

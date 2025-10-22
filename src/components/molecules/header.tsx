@@ -1,4 +1,14 @@
-const Header = () => {
+import useFavorites from "@/store/favorites";
+import type { FC } from "react";
+
+interface HeaderProps {
+  isFavoriteView: boolean;
+  setIsFavoriteView: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Header: FC<HeaderProps> = ({ isFavoriteView, setIsFavoriteView }) => {
+  const numberOfItems = useFavorites((state) => state.countFavorites());
+
   return (
     <header
       className={`
@@ -9,10 +19,22 @@ const Header = () => {
     >
       <h1 className="text-2xl font-bold">Rick & Morty Browser</h1>
       <nav className="flex items-center gap-1">
-        <button className="px-4 py-3 bg-[#00B5CC] text-white text-[16px] rounded-[10px]">
+        <button
+          onClick={() => setIsFavoriteView(false)}
+          className={`${
+            isFavoriteView ? "" : " bg-[#00B5CC] text-white"
+          } px-4 py-3 text-[16px] rounded-[10px] cursor-pointer`}
+        >
           All Characters
         </button>
-        <button className="text-[16px] px-4">Favorites (0)</button>
+        <button
+          onClick={() => setIsFavoriteView(true)}
+          className={`${
+            isFavoriteView ? "bg-[#00B5CC] text-white" : ""
+          } px-4 py-3 text-[16px] rounded-[10px] cursor-pointer`}
+        >
+          Favorites ({numberOfItems})
+        </button>
       </nav>
     </header>
   );

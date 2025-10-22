@@ -3,15 +3,34 @@ import { CardContent, Card as CardShadcn } from "../ui/card";
 import type { CharacterProps } from "@/hooks/useFetchCharacters";
 import { Heart } from "lucide-react";
 import { statusColors } from "@/consts/styles";
+import useFavorites from "@/store/favorites";
 
-const Card: FC<CharacterProps> = ({ image, name, species, status }) => {
+const Card: FC<CharacterProps> = ({ id, image, name, species, status }) => {
+  const isFavorite = useFavorites((state) => state.isFavorite(id));
+  const toggleFavorite = useFavorites((state) => state.toggleFavorite);
+
   const dotColor =
     statusColors[status.toLowerCase() as keyof typeof statusColors];
 
   return (
     <CardShadcn className="block relative py-0 rounded-[14px]">
-      <div className="absolute flex items-center justify-center top-2 right-3 rounded-full bg-white w-9 h-9">
-        <Heart className="text-[#4A5565] h-5 w-5" />
+      <div
+        onClick={() => {
+          toggleFavorite({
+            id,
+            image,
+            name,
+            species,
+            status,
+          });
+        }}
+        className="absolute flex items-center justify-center top-2 right-3 rounded-full bg-white w-9 h-9 cursor-pointer "
+      >
+        <Heart
+          className={`text-[#4A5565] h-5 w-5 ${
+            isFavorite ? "fill-[#FB2C36]" : "none"
+          }`}
+        />
       </div>
       <img src={image} className="object-cover rounded-t-[14px]" alt={name} />
       <CardContent className="py-4">
