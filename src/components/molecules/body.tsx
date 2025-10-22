@@ -4,6 +4,8 @@ import Search from "./search";
 import type { FetchCharactersProps } from "@/hooks/useFetchCharacters";
 import EmptyResult from "./emptyResult";
 import LoadingCards from "./loadingCards";
+import CharacterLayout from "../layouts/characterLayout";
+
 
 interface BodyProps {
   value: string;
@@ -16,12 +18,12 @@ const Body: FC<BodyProps> = ({ data, value, handleChange, isLoading }) => {
   const emptyResult = data?.characters.results.length === 0;
 
   return (
-    <main className="flex flex-col items-center justify-center bg-[#f9fafb]">
+    <CharacterLayout>
       <Search value={value} handleChange={handleChange} />
       {isLoading && <LoadingCards />}
       {emptyResult && <EmptyResult />}
-      {!emptyResult && <Characters data={data} />}
-    </main>
+      {!emptyResult && <Characters characters={data?.characters.results} />}
+    </CharacterLayout>
   );
 };
 

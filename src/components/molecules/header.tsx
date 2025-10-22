@@ -7,7 +7,7 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ isFavoriteView, setIsFavoriteView }) => {
-  const numberOfItems = useFavorites((state) => state.countFavorites());
+  const numberOfFavorites = useFavorites((state) => state.countFavorites());
 
   return (
     <header
@@ -33,7 +33,7 @@ const Header: FC<HeaderProps> = ({ isFavoriteView, setIsFavoriteView }) => {
             isFavoriteView ? "bg-[#00B5CC] text-white" : ""
           } px-4 py-3 text-[16px] rounded-[10px] cursor-pointer`}
         >
-          Favorites ({numberOfItems})
+          Favorites ({numberOfFavorites})
         </button>
       </nav>
     </header>

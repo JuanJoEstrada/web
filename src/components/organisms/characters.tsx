@@ -1,14 +1,12 @@
-import type { FetchCharactersProps } from "@/hooks/useFetchCharacters";
+import type { CharacterProps } from "@/hooks/useFetchCharacters";
 import Card from "./card";
 import type { FC } from "react";
 
-interface CharactersProps {
-  data: FetchCharactersProps | undefined;
+interface CharactersComponentProps {
+  characters: CharacterProps[] | undefined;
 }
 
-const Characters: FC<CharactersProps> = ({ data }) => {
-  const characters = data?.characters.results;
-
+const CharactersComponent: FC<CharactersComponentProps> = ({ characters }) => {
   return (
     <div className="grid grid-cols-3 gap-4">
       {characters?.map((character) => (
@@ -18,4 +16,4 @@ const Characters: FC<CharactersProps> = ({ data }) => {
   );
 };
 
-export default Characters;
+export default CharactersComponent;

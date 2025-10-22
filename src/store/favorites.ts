@@ -7,7 +7,6 @@ interface UseFavoriteProps {
   toggleFavorite: (character: CharacterProps) => void;
   isFavorite: (characterId: string) => boolean;
   countFavorites: () => number;
-  favoriteList: () => CharacterProps[];
 }
 
 const useFavorites = create<UseFavoriteProps>()(
@@ -28,7 +27,6 @@ const useFavorites = create<UseFavoriteProps>()(
         }),
       isFavorite: (characterId) => !!get().items[characterId],
       countFavorites: () => Object.keys(get().items).length,
-      favoriteList: () => Object.values(get().items),
     }),
     { name: "favoriteStore" }
   )
