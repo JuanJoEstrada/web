@@ -12,8 +12,8 @@ const Header: FC<HeaderProps> = ({ isFavoriteView, setIsFavoriteView }) => {
   return (
     <header
       className={`
-      flex items-center justify-between
-      px-[47px] h-[70px]
+      flex flex-col md:flex-row items-center justify-between
+      px-[47px] h-[150px] md:h-[70px] py-[40px] md:py-auto
       bg-[linear-gradient(90deg,#00B5CC1A_0%,#00B5CC0D_50%,#00B5CC00_100%)]
     `}
     >
@@ -31,9 +31,9 @@ const Header: FC<HeaderProps> = ({ isFavoriteView, setIsFavoriteView }) => {
           onClick={() => setIsFavoriteView(true)}
           className={`${
             isFavoriteView ? "bg-[#00B5CC] text-white" : ""
-          } px-4 py-3 text-[16px] rounded-[10px] cursor-pointer`}
+          } px-4 py-3 text-[16px] rounded-[10px] cursor-pointer flex`}
         >
-          Favorites ({numberOfFavorites})
+          Favorites <div className="w-9">({numberOfFavorites})</div>
         </button>
       </nav>
     </header>

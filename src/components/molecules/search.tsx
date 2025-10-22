@@ -17,7 +17,7 @@ const Search: FC<SearchProps> = ({ value, handleChange }) => {
           value={value}
           onChange={handleChange}
           placeholder="Search characters..."
-          className="pl-12 h-12 rounded-[14px] w-[600px] "
+          className="pl-12 h-12 rounded-[14px] lg:w-[600px] md:w-[300px]"
         />
       </div>
     </div>
